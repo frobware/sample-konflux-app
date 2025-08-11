@@ -7,5 +7,5 @@ LABEL operators.operatorframework.io.bundle.package.v1=todoapp-operator
 LABEL operators.operatorframework.io.bundle.channels.v1=stable
 LABEL operators.operatorframework.io.bundle.channel.default.v1=stable
 
-COPY manifests /manifests/
-COPY metadata /metadata/
+COPY bundle/manifests /manifests/
+COPY bundle/metadata /metadata/
