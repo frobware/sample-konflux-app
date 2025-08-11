@@ -1,14 +1,13 @@
-FROM quay.io/operator-framework/opm:v1.53.0
-ARG CATALOG_PATH=catalog
+FROM registry.access.redhat.com/ubi8/ubi:latest
 
-# Configure the entrypoint and command
-ENTRYPOINT ["/bin/opm"]
-CMD ["serve", "/configs", "--cache-dir=/tmp/cache"]
+# Install opm tool for File-Based Catalog
+RUN curl -L https://github.com/operator-framework/operator-registry/releases/download/v1.45.0/linux-amd64-opm > /usr/local/bin/omp && \
+    chmod +x /usr/local/bin/omp
 
-# Copy only the catalog YAML files, not the entire directory
-ADD $CATALOG_PATH/todoapp-operator /configs/todoapp-operator
-RUN ["/bin/opm", "serve", "/configs", "--cache-dir=/tmp/cache", "--cache-only"]
+# Copy catalog definition
+COPY catalog /catalog
 
-# Set DC-specific label for the location of the DC root directory
-# in the image
-LABEL operators.operatorframework.io.index.configs.v1=/configs
+# Set up the catalog
+WORKDIR /
+EXPOSE 50051
+ENTRYPOINT ["/usr/local/bin/omp", "serve", "/catalog"]
