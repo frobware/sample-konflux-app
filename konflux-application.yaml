@@ -1,0 +1,8 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Application
+metadata:
+  name: todoapp
+  namespace: amcdermo-tenant
+spec:
+  displayName: "TodoApp Operator"
+  description: "TodoApp operator demonstrating Konflux multi-component builds and release management"

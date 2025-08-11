@@ -1,0 +1,20 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  name: todoapp
+  namespace: amcdermo-tenant
+  annotations:
+    build.appstudio.openshift.io/request: configure-pac
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
+    build.appstudio.openshift.io/build-nudge-files: "bundle-hack/update_bundle.sh"
+    git-provider: github
+    git-provider-url: https://github.com
+spec:
+  application: todoapp
+  componentName: todoapp
+  containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp/todoapp
+  source:
+    git:
+      dockerfileUrl: Dockerfile
+      url: https://github.com/frobware/sample-konflux-app
+      revision: main

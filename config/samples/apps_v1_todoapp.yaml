@@ -1,0 +1,12 @@
+apiVersion: apps.todoapp.io/v1
+kind: TodoApp
+metadata:
+  labels:
+    app.kubernetes.io/name: sample-konflux-app
+    app.kubernetes.io/managed-by: kustomize
+  name: todoapp-sample
+  namespace: todoapp
+spec:
+  image: nginx:latest
+  replicas: 2
+  port: 8080
