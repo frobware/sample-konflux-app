@@ -1,13 +1,14 @@
-FROM registry.access.redhat.com/ubi8/ubi:latest
+FROM quay.io/operator-framework/opm:v1.53.0
+ARG CATALOG_PATH=catalog
 
-# Install opm tool for File-Based Catalog
-RUN curl -L https://github.com/operator-framework/operator-registry/releases/download/v1.45.0/linux-amd64-opm > /usr/local/bin/opm && \
-    chmod +x /usr/local/bin/opm
+# Configure the entrypoint and command
+ENTRYPOINT ["/bin/opm"]
+CMD ["serve", "/configs", "--cache-dir=/tmp/cache"]
 
-# Copy catalog definition
-COPY catalog /catalog
+# Copy declarative config root into image at /configs and pre-populate serve cache
+ADD $CATALOG_PATH /configs
+RUN ["/bin/opm", "serve", "/configs", "--cache-dir=/tmp/cache", "--cache-only"]
 
-# Set up the catalog
-WORKDIR /
-EXPOSE 50051
-ENTRYPOINT ["/usr/local/bin/opm", "serve", "/catalog"]
+# Set DC-specific label for the location of the DC root directory
+# in the image
+LABEL operators.operatorframework.io.index.configs.v1=/configs
