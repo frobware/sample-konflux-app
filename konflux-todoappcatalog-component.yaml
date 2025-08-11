@@ -1,7 +1,20 @@
 apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  labels:
+    appstudio.redhat.com/application: todoapp
+    appstudio.redhat.com/component: todoapp-catalog
+  name: todoapp-catalog
+  namespace: amcdermo-tenant
+spec:
+  image:
+    name: amcdermo-tenant/todoapp-catalog
+    visibility: public
+---
+apiVersion: appstudio.redhat.com/v1alpha1
 kind: Component
 metadata:
-  name: todoappcatalog
+  name: todoapp-catalog
   namespace: amcdermo-tenant
   annotations:
     build.appstudio.openshift.io/request: configure-pac
@@ -10,8 +23,8 @@ metadata:
     git-provider-url: https://github.com
 spec:
   application: todoapp
-  componentName: todoappcatalog
-  containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp/todoappcatalog
+  componentName: todoapp-catalog
+  containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-catalog
   source:
     git:
       dockerfileUrl: catalog/Dockerfile
