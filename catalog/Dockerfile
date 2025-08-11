@@ -1,9 +1,13 @@
-# Use Red Hat approved operator-registry base image for Konflux builds  
-# Using RHEL9 variant which should be accessible in Konflux
-FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:latest
+FROM registry.access.redhat.com/ubi8/ubi:latest
 
-# File-Based Catalog labels
-LABEL operators.operatorframework.io.index.configs.v1=/configs
+# Install opm tool for File-Based Catalog
+RUN curl -L https://github.com/operator-framework/operator-registry/releases/download/v1.45.0/linux-amd64-opm > /usr/local/bin/opm && \
+    chmod +x /usr/local/bin/opm
 
-# Copy the catalog configs into the expected directory structure
-COPY catalog/todoapp-operator/catalog.yaml /configs/todoapp-operator/catalog.yaml
+# Copy catalog definition
+COPY catalog /catalog
+
+# Set up the catalog
+WORKDIR /
+EXPOSE 50051
+ENTRYPOINT ["/usr/local/bin/opm", "serve", "/catalog"]
