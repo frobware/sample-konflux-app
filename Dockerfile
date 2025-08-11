@@ -1,5 +1,5 @@
-# Build the manager binary
-FROM docker.io/golang:1.23 AS builder
+# Build the manager binary using Red Hat Go image
+FROM registry.redhat.io/ubi9/go-toolset:1.23 AS builder
 ARG TARGETOS
 ARG TARGETARCH
 
@@ -23,11 +23,13 @@ COPY internal/ internal/
 # by leaving it empty we can ensure that the container and binary shipped on it will have the same platform.
 RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o manager cmd/main.go
 
-# Use distroless as minimal base image to package the manager binary
-# Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM gcr.io/distroless/static:nonroot
+# Use Red Hat UBI Micro as minimal base image to package the manager binary
+FROM registry.redhat.io/ubi9/ubi-micro:latest
 WORKDIR /
 COPY --from=builder /workspace/manager .
-USER 65532:65532
+
+# Create non-root user for security
+RUN useradd -r -u 65532 -g root nonroot
+USER 65532:root
 
 ENTRYPOINT ["/manager"]
