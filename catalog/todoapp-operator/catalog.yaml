@@ -2,17 +2,15 @@
 schema: olm.package
 name: todoapp-operator
 defaultChannel: stable
-icon:
-  base64data: ""
-  mediatype: image/png
-description: TodoApp operator for managing simple todo application deployments
+description: |
+  TodoApp operator for managing simple todo application deployments
 
 ---
 schema: olm.channel
-name: stable
 package: todoapp-operator
+name: stable
 entries:
-  - name: todoapp-operator.v0.1.0
+- name: todoapp-operator.v0.1.0
 
 ---
 schema: olm.bundle
