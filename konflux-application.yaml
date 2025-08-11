@@ -4,5 +4,5 @@ metadata:
   name: todoapp
   namespace: amcdermo-tenant
 spec:
-  displayName: "TodoApp Operator"
+  displayName: "todoapp"
   description: "TodoApp operator demonstrating Konflux multi-component builds and release management"
