@@ -18,7 +18,7 @@ metadata:
   namespace: amcdermo-tenant
   annotations:
     build.appstudio.openshift.io/request: configure-pac
-    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
+    build.appstudio.openshift.io/pipeline: '{"name":"fbc-builder","bundle":"latest"}'
     git-provider: github
     git-provider-url: https://github.com
 spec:
