@@ -1,0 +1,19 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  name: todoappcatalog
+  namespace: amcdermo-tenant
+  annotations:
+    build.appstudio.openshift.io/request: configure-pac
+    build.appstudio.openshift.io/pipeline: '{"name":"fbc-builder","bundle":"latest"}'
+    git-provider: github
+    git-provider-url: https://github.com
+spec:
+  application: todoapp
+  componentName: todoappcatalog
+  containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp/todoappcatalog
+  source:
+    git:
+      dockerfileUrl: catalog/Dockerfile
+      url: https://github.com/frobware/sample-konflux-app
+      revision: main
