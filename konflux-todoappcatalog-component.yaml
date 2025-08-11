@@ -19,6 +19,7 @@ metadata:
   annotations:
     build.appstudio.openshift.io/request: configure-pac
     build.appstudio.openshift.io/pipeline: '{"name":"fbc-builder","bundle":"latest"}'
+    build.appstudio.openshift.io/build-nudge-files: "catalog/todoapp-operator/catalog.yaml"
     git-provider: github
     git-provider-url: https://github.com
 spec:
