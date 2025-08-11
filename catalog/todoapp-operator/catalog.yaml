@@ -18,7 +18,7 @@ entries:
 schema: olm.bundle
 name: todoapp-operator.v0.1.0
 package: todoapp-operator
-image: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp/todoappbundle@sha256:placeholder
+image: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator-bundle@sha256:0000000000000000000000000000000000000000000000000000000000000000
 properties:
   - type: olm.gvk
     value:
