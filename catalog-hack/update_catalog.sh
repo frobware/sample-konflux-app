@@ -6,7 +6,7 @@ set -euo pipefail
 # The image reference below will be updated by Renovate/Konflux nudging
 
 # Bundle image reference that Renovate will update
-export TODOAPP_BUNDLE_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:907c71369f07ff9adbdb05e706b76bb9d349f3ce96d3552584ea0bb299dbecf2"
+export TODOAPP_BUNDLE_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:351e8c9e8cb8b0bcb635c560e23df9d28fecbc5f2a9f1780b354ed1189fe9b79"
 
 echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 
