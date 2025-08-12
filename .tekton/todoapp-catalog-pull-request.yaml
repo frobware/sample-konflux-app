@@ -9,9 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
-      == "main" && (".tekton/todoapp-catalog-pull-request.yaml".pathChanged() ||
-      ".tekton/todoapp-catalog-push.yaml".pathChanged() || "catalog.Dockerfile".pathChanged() ||
-      "catalog/***".pathChanged())
+      == "main"
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: todoapp
@@ -29,8 +27,6 @@ spec:
     value: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-catalog:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
-  - name: skip-checks
-    value: "true"
   - name: build-platforms
     value:
     - linux/x86_64
