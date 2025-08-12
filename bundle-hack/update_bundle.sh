@@ -13,12 +13,18 @@ echo "Updating bundle with operator image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
 # Update ClusterServiceVersion with new operator image
 if [ -f "bundle/manifests/todoapp-operator.clusterserviceversion.yaml" ]; then
     echo "Updating ClusterServiceVersion with image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
-    
-    # Replace the operator image reference in the deployment spec (not the example image in alm-examples)
-    # Target line 137 specifically or use a pattern that avoids the JSON section
-    sed -i '/deployments:/,$ s|image: .*|image: '"$TODOAPP_OPERATOR_IMAGE_PULLSPEC"'|' \
+
+    # Replace any todoapp-operator image references with the new pullspec
+    # Regex breakdown:
+    #   image:                    - literal "image:" field
+    #   [^[:space:]]*            - any non-whitespace chars (registry/path)
+    #   todoapp-operator         - literal component name to match
+    #   [^[:space:]]*            - any non-whitespace chars (tag/digest)
+    # This matches: image: quay.io/.../todoapp-operator:tag or @sha256:...
+    # But stops at whitespace to avoid greedy matching
+    sed -i 's|image: [^[:space:]]*todoapp-operator[^[:space:]]*|image: '"$TODOAPP_OPERATOR_IMAGE_PULLSPEC"'|g' \
         bundle/manifests/todoapp-operator.clusterserviceversion.yaml
-    
+
     echo "Updated ClusterServiceVersion"
 else
     echo "Warning: ClusterServiceVersion file not found"

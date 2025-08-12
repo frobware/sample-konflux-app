@@ -14,9 +14,15 @@ echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 if [ -f "catalog/todoapp-operator/catalog.yaml" ]; then
     echo "Updating catalog.yaml with image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
     
-    # Replace the bundle image reference in the catalog
-    # This handles both initial setup and subsequent updates with any registry/digest
-    sed -i 's|image: .*todoapp.*bundle.*|image: '"$TODOAPP_BUNDLE_IMAGE_PULLSPEC"'|g' \
+    # Replace any todoapp-bundle image references with the new pullspec
+    # Regex breakdown:
+    #   image:                    - literal "image:" field
+    #   [^[:space:]]*            - any non-whitespace chars (registry/path)
+    #   todoapp-bundle           - literal component name to match
+    #   [^[:space:]]*            - any non-whitespace chars (tag/digest)
+    # This matches: image: quay.io/.../todoapp-bundle:tag or @sha256:...
+    # But stops at whitespace to avoid greedy matching
+    sed -i 's|image: [^[:space:]]*todoapp-bundle[^[:space:]]*|image: '"$TODOAPP_BUNDLE_IMAGE_PULLSPEC"'|g' \
         catalog/todoapp-operator/catalog.yaml
     
     echo "Updated catalog.yaml"
