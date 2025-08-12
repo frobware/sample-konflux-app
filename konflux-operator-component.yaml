@@ -26,6 +26,8 @@ spec:
   application: todoapp
   componentName: todoapp-operator
   containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator
+  build-nudges-ref:
+  - todoapp-bundle
   source:
     git:
       dockerfileUrl: Dockerfile
