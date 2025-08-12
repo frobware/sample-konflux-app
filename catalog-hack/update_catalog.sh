@@ -3,24 +3,20 @@ set -euo pipefail
 
 # Script to update catalog with bundle image reference
 # This script is referenced by the build-nudge-files annotation
+# The image reference below will be updated by Renovate/Konflux nudging
 
-echo "Updating catalog with new bundle image reference..."
+# Bundle image reference that Renovate will update
+export TODOAPP_BUNDLE_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:placeholder-will-be-updated-by-renovate"
 
-# Get the new bundle image from environment variables set by Konflux
-# Konflux sets component-specific environment variables:
-# - TODOAPP_BUNDLE_IMAGE_DIGEST for the bundle component
-# - TODOAPP_BUNDLE_IMAGE_URL for the bundle component
-NEW_IMAGE="${TODOAPP_BUNDLE_IMAGE_DIGEST:-${TODOAPP_BUNDLE_IMAGE_URL:-bundle:latest}}"
-
-echo "New bundle image: $NEW_IMAGE"
+echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 
 # Update catalog.yaml with new bundle image
 if [ -f "catalog/todoapp-operator/catalog.yaml" ]; then
-    echo "Updating catalog.yaml with image: $NEW_IMAGE"
+    echo "Updating catalog.yaml with image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
     
     # Replace the bundle image reference in the catalog
     # This handles both initial setup and subsequent updates with any registry/digest
-    sed -i 's|image: .*todoapp.*bundle.*|image: '"$NEW_IMAGE"'|g' \
+    sed -i 's|image: .*todoapp.*bundle.*|image: '"$TODOAPP_BUNDLE_IMAGE_PULLSPEC"'|g' \
         catalog/todoapp-operator/catalog.yaml
     
     echo "Updated catalog.yaml"

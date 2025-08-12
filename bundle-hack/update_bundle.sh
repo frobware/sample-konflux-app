@@ -3,24 +3,20 @@ set -euo pipefail
 
 # Script to update bundle with operator image reference
 # This script is referenced by the build-nudge-files annotation
+# The image reference below will be updated by Renovate/Konflux nudging
 
-echo "Updating bundle with new operator image reference..."
+# Operator image reference that Renovate will update
+export TODOAPP_OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator@sha256:placeholder-will-be-updated-by-renovate"
 
-# Get the new operator image from environment variables set by Konflux
-# Konflux sets component-specific environment variables:
-# - TODOAPP_OPERATOR_IMAGE_DIGEST for the operator component
-# - TODOAPP_OPERATOR_IMAGE_URL for the operator component
-NEW_IMAGE="${TODOAPP_OPERATOR_IMAGE_DIGEST:-${TODOAPP_OPERATOR_IMAGE_URL:-controller:latest}}"
-
-echo "New operator image: $NEW_IMAGE"
+echo "Updating bundle with operator image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
 
 # Update ClusterServiceVersion with new operator image
 if [ -f "bundle/manifests/todoapp-operator.clusterserviceversion.yaml" ]; then
-    echo "Updating ClusterServiceVersion with image: $NEW_IMAGE"
+    echo "Updating ClusterServiceVersion with image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
     
     # Replace the operator image reference in the deployment spec (not the example image in alm-examples)
     # Target line 137 specifically or use a pattern that avoids the JSON section
-    sed -i '/deployments:/,$ s|image: .*|image: '"$NEW_IMAGE"'|' \
+    sed -i '/deployments:/,$ s|image: .*|image: '"$TODOAPP_OPERATOR_IMAGE_PULLSPEC"'|' \
         bundle/manifests/todoapp-operator.clusterserviceversion.yaml
     
     echo "Updated ClusterServiceVersion"
