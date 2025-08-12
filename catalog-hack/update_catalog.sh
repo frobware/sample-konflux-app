@@ -18,11 +18,12 @@ if [ -f "catalog/todoapp-operator/catalog.yaml" ]; then
     # Regex breakdown:
     #   image:                    - literal "image:" field
     #   [^[:space:]]*            - any non-whitespace chars (registry/path)
-    #   todoapp-bundle           - literal component name to match
+    #   todoapp.*bundle          - matches both todoapp-bundle and todoapp-operator-bundle
     #   [^[:space:]]*            - any non-whitespace chars (tag/digest)
     # This matches: image: quay.io/.../todoapp-bundle:tag or @sha256:...
+    #               image: quay.io/.../todoapp-operator-bundle:tag or @sha256:...
     # But stops at whitespace to avoid greedy matching
-    sed -i 's|image: [^[:space:]]*todoapp-bundle[^[:space:]]*|image: '"$TODOAPP_BUNDLE_IMAGE_PULLSPEC"'|g' \
+    sed -i 's|image: [^[:space:]]*todoapp.*bundle[^[:space:]]*|image: '"$TODOAPP_BUNDLE_IMAGE_PULLSPEC"'|g' \
         catalog/todoapp-operator/catalog.yaml
     
     echo "Updated catalog.yaml"
