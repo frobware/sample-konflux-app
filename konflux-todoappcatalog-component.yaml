@@ -28,6 +28,6 @@ spec:
   containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-catalog
   source:
     git:
-      dockerfileUrl: catalog/Dockerfile
+      dockerfileUrl: catalog.Dockerfile
       url: https://github.com/frobware/sample-konflux-app
       revision: main
