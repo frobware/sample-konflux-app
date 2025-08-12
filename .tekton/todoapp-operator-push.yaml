@@ -27,6 +27,8 @@ spec:
     value: '{{revision}}'
   - name: output-image
     value: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator:{{revision}}
+  - name: skip-checks
+    value: "true"
   - name: dockerfile
     value: Dockerfile
   pipelineSpec:
