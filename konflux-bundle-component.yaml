@@ -3,18 +3,18 @@ kind: ImageRepository
 metadata:
   labels:
     appstudio.redhat.com/application: todoapp
-    appstudio.redhat.com/component: todoapp-operator-bundle
-  name: todoapp-operator-bundle
+    appstudio.redhat.com/component: todoapp-bundle
+  name: todoapp-bundle
   namespace: amcdermo-tenant
 spec:
   image:
-    name: amcdermo-tenant/todoapp-operator-bundle
+    name: amcdermo-tenant/todoapp-bundle
     visibility: public
 ---
 apiVersion: appstudio.redhat.com/v1alpha1
 kind: Component
 metadata:
-  name: todoapp-operator-bundle
+  name: todoapp-bundle
   namespace: amcdermo-tenant
   annotations:
     build.appstudio.openshift.io/request: configure-pac
@@ -24,10 +24,10 @@ metadata:
     git-provider-url: https://github.com
 spec:
   application: todoapp
-  componentName: todoapp-operator-bundle
-  containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator-bundle
+  componentName: todoapp-bundle
+  containerImage: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle
   source:
     git:
-      dockerfileUrl: bundle/Dockerfile
+      dockerfileUrl: bundle.Dockerfile
       url: https://github.com/frobware/sample-konflux-app
       revision: main
