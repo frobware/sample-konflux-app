@@ -1,0 +1,39 @@
+diff --git a/.tekton/todoapp-bundle-push.yaml b/.tekton/todoapp-bundle-push.yaml
+index 18fbd62..e018756 100644
+--- a/.tekton/todoapp-bundle-push.yaml
++++ b/.tekton/todoapp-bundle-push.yaml
+@@ -71,7 +71,7 @@ spec:
+       description: Force rebuild image
+       name: rebuild
+       type: string
+-    - default: "false"
++    - default: "true"
+       description: Skip checks against built image
+       name: skip-checks
+       type: string
+diff --git a/.tekton/todoapp-catalog-push.yaml b/.tekton/todoapp-catalog-push.yaml
+index 2424e34..10ea96e 100644
+--- a/.tekton/todoapp-catalog-push.yaml
++++ b/.tekton/todoapp-catalog-push.yaml
+@@ -74,7 +74,7 @@ spec:
+       description: Force rebuild image
+       name: rebuild
+       type: string
+-    - default: "false"
++    - default: "true"
+       description: Skip checks against built image
+       name: skip-checks
+       type: string
+diff --git a/.tekton/todoapp-operator-push.yaml b/.tekton/todoapp-operator-push.yaml
+index 296523e..5943ac1 100644
+--- a/.tekton/todoapp-operator-push.yaml
++++ b/.tekton/todoapp-operator-push.yaml
+@@ -71,7 +71,7 @@ spec:
+       description: Force rebuild image
+       name: rebuild
+       type: string
+-    - default: "false"
++    - default: "true"
+       description: Skip checks against built image
+       name: skip-checks
+       type: string
