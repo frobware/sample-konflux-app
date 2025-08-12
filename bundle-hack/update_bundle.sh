@@ -7,7 +7,10 @@ set -euo pipefail
 echo "Updating bundle with new operator image reference..."
 
 # Get the new operator image from environment variables set by Konflux
-NEW_IMAGE="${BUILD_IMAGE_DIGEST:-controller:latest}"
+# Konflux sets component-specific environment variables:
+# - TODOAPP_OPERATOR_IMAGE_DIGEST for the operator component
+# - TODOAPP_OPERATOR_IMAGE_URL for the operator component
+NEW_IMAGE="${TODOAPP_OPERATOR_IMAGE_DIGEST:-${TODOAPP_OPERATOR_IMAGE_URL:-controller:latest}}"
 
 echo "New operator image: $NEW_IMAGE"
 
@@ -16,7 +19,8 @@ if [ -f "bundle/manifests/todoapp-operator.clusterserviceversion.yaml" ]; then
     echo "Updating ClusterServiceVersion with image: $NEW_IMAGE"
     
     # Replace the image reference in the deployment spec
-    sed -i "s|image: controller:latest|image: $NEW_IMAGE|g" \
+    # This handles both initial (controller:latest) and subsequent updates (with digest)
+    sed -i 's|image: .*controller.*|image: '"$NEW_IMAGE"'|g' \
         bundle/manifests/todoapp-operator.clusterserviceversion.yaml
     
     echo "Updated ClusterServiceVersion"
@@ -25,6 +29,6 @@ else
 fi
 
 # Update any other bundle files that reference the operator image
-find bundle/ -name "*.yaml" -type f -exec sed -i "s|controller:latest|$NEW_IMAGE|g" {} \;
+find bundle/ -name "*.yaml" -type f -exec sed -i 's|image: .*controller.*|image: '"$NEW_IMAGE"'|g' {} \;
 
 echo "Bundle update complete"

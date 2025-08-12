@@ -10,7 +10,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
       == "main" && (".tekton/todoapp-catalog-pull-request.yaml".pathChanged() ||
       ".tekton/todoapp-catalog-push.yaml".pathChanged() || "catalog.Dockerfile".pathChanged() ||
-      "catalog/***".pathChanged())
+      "catalog/***".pathChanged() || "catalog-hack/***".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: todoapp
