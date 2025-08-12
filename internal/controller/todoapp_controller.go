@@ -34,6 +34,7 @@ import (
 )
 
 // TodoAppReconciler reconciles a TodoApp object
+// This change should only trigger operator builds due to CEL expression filtering
 type TodoAppReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
