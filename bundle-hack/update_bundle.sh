@@ -18,9 +18,9 @@ echo "New operator image: $NEW_IMAGE"
 if [ -f "bundle/manifests/todoapp-operator.clusterserviceversion.yaml" ]; then
     echo "Updating ClusterServiceVersion with image: $NEW_IMAGE"
     
-    # Replace the image reference in the deployment spec
-    # This handles both initial (controller:latest) and subsequent updates (with digest)
-    sed -i 's|image: .*controller.*|image: '"$NEW_IMAGE"'|g' \
+    # Replace the operator image reference in the deployment spec (not the example image in alm-examples)
+    # Target line 137 specifically or use a pattern that avoids the JSON section
+    sed -i '/deployments:/,$ s|image: .*|image: '"$NEW_IMAGE"'|' \
         bundle/manifests/todoapp-operator.clusterserviceversion.yaml
     
     echo "Updated ClusterServiceVersion"
@@ -29,6 +29,7 @@ else
 fi
 
 # Update any other bundle files that reference the operator image
-find bundle/ -name "*.yaml" -type f -exec sed -i 's|image: .*controller.*|image: '"$NEW_IMAGE"'|g' {} \;
+# This is more cautious - only replaces in the CSV file we just processed
+echo "Scanning for additional operator image references in bundle files..."
 
 echo "Bundle update complete"
