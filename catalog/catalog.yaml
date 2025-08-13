@@ -1,28 +1,4 @@
----
 schema: olm.catalog
-name: sample-konflux-app-catalog
----
-schema: olm.package
-name: sample-konflux-app
-defaultChannel: alpha
----
-schema: olm.channel
 package: sample-konflux-app
-name: alpha
 entries:
-- name: sample-konflux-app.v0.1.0
----
-schema: olm.bundle
-name: sample-konflux-app.v0.1.0
-package: sample-konflux-app
-image: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:adaae1bdcee917df1ddaf7a3b6cf056d4c4a85cfe500aa95faeef6a01c78c4ff
-properties:
-- type: olm.gvk
-  value:
-    group: app.example.com
-    version: v1
-    kind: TodoApp
-- type: olm.package
-  value:
-    packageName: sample-konflux-app
-    version: 0.1.0
+- image: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle:latest
