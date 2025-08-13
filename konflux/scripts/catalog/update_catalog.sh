@@ -6,7 +6,7 @@ set -euo pipefail
 # The image reference below will be updated by Renovate/Konflux nudging
 
 # Source bundle image reference from centralised file
-export TODOAPP_BUNDLE_IMAGE_PULLSPEC=$(cat image-refs/bundle.txt)
+export TODOAPP_BUNDLE_IMAGE_PULLSPEC=$(cat konflux/image-refs/bundle.txt)
 
 echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 

@@ -6,7 +6,7 @@ set -euo pipefail
 # The image reference below will be updated by Renovate/Konflux nudging
 
 # Source operator image reference from centralised file
-export TODOAPP_OPERATOR_IMAGE_PULLSPEC=$(cat image-refs/operator.txt)
+export TODOAPP_OPERATOR_IMAGE_PULLSPEC=$(cat konflux/image-refs/operator.txt)
 
 echo "Updating bundle with operator image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
 

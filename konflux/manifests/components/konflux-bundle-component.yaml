@@ -19,7 +19,7 @@ metadata:
   annotations:
     build.appstudio.openshift.io/request: configure-pac
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
-    build.appstudio.openshift.io/build-nudge-files: "catalog-hack/update_catalog.sh"
+    build.appstudio.openshift.io/build-nudge-files: "konflux/image-refs/bundle.txt"
     git-provider: github
     git-provider-url: https://github.com
 spec:
@@ -30,6 +30,6 @@ spec:
   - todoapp-catalog
   source:
     git:
-      dockerfileUrl: bundle.Dockerfile
+      dockerfileUrl: konflux/dockerfiles/bundle.Dockerfile
       url: https://github.com/frobware/sample-konflux-app
       revision: main
