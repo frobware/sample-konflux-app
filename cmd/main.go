@@ -16,6 +16,7 @@ limitations under the License.
 
 // Fixed symlink issues causing pipeline failures
 // Removed bundle_tmp directory with problematic symlinks
+// Testing pipeline after successful bundle_tmp removal
 
 package main
 
