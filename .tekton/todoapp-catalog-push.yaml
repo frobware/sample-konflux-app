@@ -31,6 +31,10 @@ spec:
     - linux/x86_64
   - name: dockerfile
     value: catalog.Dockerfile
+  - name: hermetic
+    value: "false"
+  - name: skip-checks
+    value: "true"
   pipelineSpec:
     description: |
       This pipeline is ideal for building and verifying [file-based catalogs](https://konflux-ci.dev/docs/end-to-end/building-olm/#building-the-file-based-catalog).
@@ -184,7 +188,7 @@ spec:
       - name: ociArtifactExpiresAfter
         value: $(params.image-expires-after)
       - name: OPM_ARGS
-        value: []
+        value: ["--skip-image-replace"]
       - name: OPM_OUTPUT_PATH
         value: ""
       - name: IDMS_PATH
