@@ -6,7 +6,7 @@ set -euo pipefail
 # The image reference below will be updated by Renovate/Konflux nudging
 
 # Operator image reference that Renovate will update
-export TODOAPP_OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator@sha256:0f82f9211b156e97443e1ba74e92a602f55bbd2fbcfec179357703ebad8640cb"
+export TODOAPP_OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator@sha256:2cd8f43404cab0f2b1e6935b0e47f431033fbb3a759715d0b177ba78d02a2c71"
 
 echo "Updating bundle with operator image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
 
