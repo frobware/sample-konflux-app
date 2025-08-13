@@ -1,20 +1,17 @@
 # Use a builder image that has shell capabilities
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as shell-builder
 
-# Copy the update script and files
-COPY konflux/scripts/catalog/update_catalog.sh /tmp/update_catalog.sh  
-COPY catalog /configs
-COPY konflux /tmp/konflux
+# Copy entire repo structure
+COPY . .
 
-# Run the update script to modify catalog files
-WORKDIR /tmp
-RUN chmod +x update_catalog.sh && ./update_catalog.sh && rm ./update_catalog.sh
+# Run the update script with relative paths
+RUN chmod +x konflux/scripts/catalog/update_catalog.sh && konflux/scripts/catalog/update_catalog.sh
 
 # Use the OPM image for final stage
 FROM quay.io/operator-framework/opm:latest as builder
 
 # Copy updated catalog files from shell-builder
-COPY --from=shell-builder /configs /configs
+COPY --from=shell-builder catalog /configs
 RUN ["/bin/opm", "serve", "/configs", "--cache-dir=/tmp/cache", "--cache-only"]
 
 FROM quay.io/operator-framework/opm:latest

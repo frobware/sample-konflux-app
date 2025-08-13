@@ -1,13 +1,10 @@
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as builder
 
-# Copy the update script and files
-COPY konflux/scripts/bundle/update_bundle.sh /tmp/update_bundle.sh
-COPY bundle /tmp/bundle
-COPY konflux /tmp/konflux
+# Copy entire repo structure
+COPY . .
 
-# Run the update script to modify bundle files with current image references
-WORKDIR /tmp
-RUN chmod +x update_bundle.sh && ./update_bundle.sh
+# Run the update script with relative paths
+RUN chmod +x konflux/scripts/bundle/update_bundle.sh && konflux/scripts/bundle/update_bundle.sh
 
 FROM scratch
 
@@ -26,6 +23,6 @@ LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
 # Copy files to locations specified by labels.
-COPY --from=builder /tmp/bundle/manifests /manifests/
-COPY --from=builder /tmp/bundle/metadata /metadata/
-COPY --from=builder /tmp/bundle/tests/scorecard /tests/scorecard/
+COPY --from=builder bundle/manifests /manifests/
+COPY --from=builder bundle/metadata /metadata/
+COPY --from=builder bundle/tests/scorecard /tests/scorecard/
