@@ -1,2 +1,1 @@
-# Fixed symlink issues in repository
 quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator@sha256:7683b599cf37f9cd78145f4ffd3372ced1e5598e42c98cc97492c6f1cbac3166
