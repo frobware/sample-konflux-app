@@ -1,0 +1,3 @@
+This file is used to force removal of bundle_tmp directory from repository.
+The bundle_tmp directory was accidentally committed and contains symlinks that
+cause the Konflux symlink security check to fail.

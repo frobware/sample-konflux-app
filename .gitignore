@@ -23,6 +23,7 @@ go.work
 *.db
 index.db
 catalog/index.db
+bundle_tmp*
 
 # editor and IDE paraphernalia
 .idea
