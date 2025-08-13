@@ -5,8 +5,8 @@ set -euo pipefail
 # This script is referenced by the build-nudge-files annotation
 # The image reference below will be updated by Renovate/Konflux nudging
 
-# Bundle image reference that Renovate will update
-export TODOAPP_BUNDLE_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:acb636b6f3e0ea863253f3417b4634d4ab23ca28de4a8447f2fc3f84e1a01415"
+# Source bundle image reference from centralised file
+export TODOAPP_BUNDLE_IMAGE_PULLSPEC=$(cat image-refs/bundle.txt)
 
 echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 

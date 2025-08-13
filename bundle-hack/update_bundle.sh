@@ -5,8 +5,8 @@ set -euo pipefail
 # This script is referenced by the build-nudge-files annotation
 # The image reference below will be updated by Renovate/Konflux nudging
 
-# Operator image reference that Renovate will update
-export TODOAPP_OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-operator@sha256:0f82f9211b156e97443e1ba74e92a602f55bbd2fbcfec179357703ebad8640cb"
+# Source operator image reference from centralised file
+export TODOAPP_OPERATOR_IMAGE_PULLSPEC=$(cat image-refs/operator.txt)
 
 echo "Updating bundle with operator image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
 
