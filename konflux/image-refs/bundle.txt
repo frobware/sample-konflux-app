@@ -1,1 +1,1 @@
-quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:3bc5d021362df3cea0151d853b10c062656c4d70b76e17f0b6e73bb15d399485
+quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle@sha256:b8316f7af292813f8e68a256251da16b3274d605b11e4905cb99ff4615865355
