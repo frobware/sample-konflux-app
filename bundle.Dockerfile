@@ -1,6 +1,9 @@
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as builder
 
-# Copy entire repo structure
+# Set working directory first
+WORKDIR /repo
+
+# Copy entire repo structure to current working directory
 COPY . .
 
 # Run the update script with relative paths
@@ -23,6 +26,6 @@ LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
 # Copy files to locations specified by labels.
-COPY --from=builder bundle/manifests /manifests/
-COPY --from=builder bundle/metadata /metadata/
-COPY --from=builder bundle/tests/scorecard /tests/scorecard/
+COPY --from=builder /repo/bundle/manifests /manifests/
+COPY --from=builder /repo/bundle/metadata /metadata/
+COPY --from=builder /repo/bundle/tests/scorecard /tests/scorecard/
