@@ -12,7 +12,7 @@ metadata:
       == "main" && (".tekton/todoapp-operator-pull-request.yaml".pathChanged() ||
       ".tekton/todoapp-operator-push.yaml".pathChanged() || "Dockerfile".pathChanged() ||
       "api/***".pathChanged() || "internal/***".pathChanged() || "cmd/***".pathChanged() ||
-      "config/***".pathChanged() || "konflux/scripts/bundle/***".pathChanged())
+      "config/***".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: todoapp
