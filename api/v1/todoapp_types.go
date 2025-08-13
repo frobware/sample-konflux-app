@@ -22,6 +22,7 @@ import (
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+// Updated: 2025-08-13T16:11:00Z - Testing Konflux component nudging workflow
 
 // TodoAppSpec defines the desired state of TodoApp
 type TodoAppSpec struct {
