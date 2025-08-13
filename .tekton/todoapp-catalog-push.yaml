@@ -9,7 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
       == "main" && (".tekton/todoapp-catalog-pull-request.yaml".pathChanged() ||
-      ".tekton/todoapp-catalog-push.yaml".pathChanged() || "konflux/dockerfiles/catalog.Dockerfile".pathChanged() ||
+      ".tekton/todoapp-catalog-push.yaml".pathChanged() || "catalog.Dockerfile".pathChanged() ||
       "catalog/***".pathChanged() || "konflux/scripts/catalog/***".pathChanged() || "konflux/image-refs/bundle.txt".pathChanged())
   creationTimestamp: null
   labels:
@@ -30,7 +30,7 @@ spec:
     value:
     - linux/x86_64
   - name: dockerfile
-    value: konflux/dockerfiles/catalog.Dockerfile
+    value: catalog.Dockerfile
   pipelineSpec:
     description: |
       This pipeline is ideal for building and verifying [file-based catalogs](https://konflux-ci.dev/docs/end-to-end/building-olm/#building-the-file-based-catalog).

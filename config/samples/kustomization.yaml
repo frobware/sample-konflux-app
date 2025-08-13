@@ -1,4 +1,4 @@
 ## Append samples of your project ##
 resources:
-- apps_v1_todoapp.yaml
+- app_v1_todoapp.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples

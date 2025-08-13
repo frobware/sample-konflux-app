@@ -23,37 +23,25 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// TodoAppSpec defines the desired state of TodoApp.
+// TodoAppSpec defines the desired state of TodoApp
 type TodoAppSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Image specifies the container image for the TodoApp
-	Image string `json:"image,omitempty"`
-
-	// Replicas specifies the number of replicas for the TodoApp deployment
-	Replicas *int32 `json:"replicas,omitempty"`
-
-	// Port specifies the port the TodoApp listens on
-	Port int32 `json:"port,omitempty"`
+	// Foo is an example field of TodoApp. Edit todoapp_types.go to remove/update
+	Foo string `json:"foo,omitempty"`
 }
 
-// TodoAppStatus defines the observed state of TodoApp.
+// TodoAppStatus defines the observed state of TodoApp
 type TodoAppStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// ReadyReplicas indicates the number of ready replicas
-	ReadyReplicas int32 `json:"readyReplicas,omitempty"`
-
-	// Conditions represent the current conditions of the TodoApp
-	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
-// TodoApp is the Schema for the todoapps API.
+// TodoApp is the Schema for the todoapps API
 type TodoApp struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -64,7 +52,7 @@ type TodoApp struct {
 
 // +kubebuilder:object:root=true
 
-// TodoAppList contains a list of TodoApp.
+// TodoAppList contains a list of TodoApp
 type TodoAppList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`

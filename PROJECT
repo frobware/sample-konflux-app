@@ -2,9 +2,12 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: todoapp.io
+domain: example.com
 layout:
 - go.kubebuilder.io/v4
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
 projectName: sample-konflux-app
 repo: github.com/frobware/sample-konflux-app
 resources:
@@ -12,8 +15,8 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: todoapp.io
-  group: apps
+  domain: example.com
+  group: app
   kind: TodoApp
   path: github.com/frobware/sample-konflux-app/api/v1
   version: v1

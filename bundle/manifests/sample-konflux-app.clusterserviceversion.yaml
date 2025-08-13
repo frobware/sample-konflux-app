@@ -5,23 +5,24 @@ metadata:
     alm-examples: |-
       [
         {
-          "apiVersion": "apps.todoapp.io/v1",
+          "apiVersion": "app.example.com/v1",
           "kind": "TodoApp",
           "metadata": {
+            "labels": {
+              "app.kubernetes.io/managed-by": "kustomize",
+              "app.kubernetes.io/name": "sample-konflux-app"
+            },
             "name": "todoapp-sample"
           },
-          "spec": {
-            "image": "nginx:latest",
-            "replicas": 1,
-            "port": 8080
-          }
+          "spec": null
         }
       ]
     capabilities: Basic Install
-    categories: Application Runtime
-    description: TodoApp operator manages simple todo application deployments
-  name: todoapp-operator.v0.1.0
-  namespace: todoapp
+    createdAt: "2025-08-13T10:43:32Z"
+    operators.operatorframework.io/builder: operator-sdk-unknown
+    operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
+  name: sample-konflux-app.v0.1.0
+  namespace: placeholder
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -29,11 +30,9 @@ spec:
     - description: TodoApp is the Schema for the todoapps API
       displayName: Todo App
       kind: TodoApp
-      name: todoapps.apps.todoapp.io
+      name: todoapps.app.example.com
       version: v1
-  description: |
-    The TodoApp operator manages simple todo application deployments in Kubernetes.
-    It creates and manages Deployment and Service resources for TodoApp custom resources.
+  description: A Kubernetes operator for managing TodoApp applications
   displayName: TodoApp Operator
   icon:
   - base64data: ""
@@ -43,7 +42,7 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
-          - apps.todoapp.io
+          - app.example.com
           resources:
           - todoapps
           verbs:
@@ -55,43 +54,19 @@ spec:
           - update
           - watch
         - apiGroups:
-          - apps.todoapp.io
+          - app.example.com
           resources:
           - todoapps/finalizers
           verbs:
           - update
         - apiGroups:
-          - apps.todoapp.io
+          - app.example.com
           resources:
           - todoapps/status
           verbs:
           - get
           - patch
           - update
-        - apiGroups:
-          - apps
-          resources:
-          - deployments
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
-        - apiGroups:
-          - ""
-          resources:
-          - services
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
         - apiGroups:
           - authentication.k8s.io
           resources:
@@ -104,17 +79,13 @@ spec:
           - subjectaccessreviews
           verbs:
           - create
-        serviceAccountName: todoapp-controller-manager
+        serviceAccountName: sample-konflux-app-controller-manager
       deployments:
       - label:
-          app.kubernetes.io/component: manager
-          app.kubernetes.io/created-by: sample-konflux-app
-          app.kubernetes.io/instance: controller-manager
           app.kubernetes.io/managed-by: kustomize
-          app.kubernetes.io/name: deployment
-          app.kubernetes.io/part-of: sample-konflux-app
+          app.kubernetes.io/name: sample-konflux-app
           control-plane: controller-manager
-        name: todoapp-controller-manager
+        name: sample-konflux-app-controller-manager
         spec:
           replicas: 1
           selector:
@@ -130,6 +101,7 @@ spec:
             spec:
               containers:
               - args:
+                - --metrics-bind-address=:8443
                 - --leader-elect
                 - --health-probe-bind-address=:8081
                 command:
@@ -162,8 +134,42 @@ spec:
                     - ALL
               securityContext:
                 runAsNonRoot: true
-              serviceAccountName: todoapp-controller-manager
+              serviceAccountName: sample-konflux-app-controller-manager
               terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: sample-konflux-app-controller-manager
     strategy: deployment
   installModes:
   - supported: false
@@ -175,16 +181,12 @@ spec:
   - supported: true
     type: AllNamespaces
   keywords:
-  - todoapp
-  - operator
-  - deployment
+  - foo@example.com
   links:
-  - name: TodoApp Operator
-    url: https://github.com/frobware/sample-konflux-app
-  maintainers:
-  - email: support@todoapp.io
-    name: TodoApp Team
+  - name: Sample Konflux App
+    url: https://sample-konflux-app.domain
   maturity: alpha
   provider:
-    name: TodoApp
+    name: github.com/frobware
+    url: https://github.com/frobware/sample-konflux-app
   version: 0.1.0

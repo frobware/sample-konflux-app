@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	appsv1 "github.com/frobware/sample-konflux-app/api/v1"
+	appv1 "github.com/frobware/sample-konflux-app/api/v1"
 )
 
 var _ = Describe("TodoApp Controller", func() {
@@ -40,13 +40,13 @@ var _ = Describe("TodoApp Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		todoapp := &appsv1.TodoApp{}
+		todoapp := &appv1.TodoApp{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind TodoApp")
 			err := k8sClient.Get(ctx, typeNamespacedName, todoapp)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &appsv1.TodoApp{
+				resource := &appv1.TodoApp{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -59,7 +59,7 @@ var _ = Describe("TodoApp Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &appsv1.TodoApp{}
+			resource := &appv1.TodoApp{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 

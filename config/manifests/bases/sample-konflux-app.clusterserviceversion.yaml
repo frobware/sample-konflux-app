@@ -1,0 +1,45 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: sample-konflux-app.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: TodoApp is the Schema for the todoapps API
+      displayName: Todo App
+      kind: TodoApp
+      name: todoapps.app.example.com
+      version: v1
+  description: A Kubernetes operator for managing TodoApp applications
+  displayName: TodoApp Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - foo@example.com
+  links:
+  - name: Sample Konflux App
+    url: https://sample-konflux-app.domain
+  maturity: alpha
+  provider:
+    name: github.com/frobware
+    url: https://github.com/frobware/sample-konflux-app
+  version: 0.0.0

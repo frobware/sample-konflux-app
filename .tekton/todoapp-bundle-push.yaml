@@ -10,7 +10,7 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
       == "main" && (".tekton/todoapp-bundle-pull-request.yaml".pathChanged() ||
-      ".tekton/todoapp-bundle-push.yaml".pathChanged() || "konflux/dockerfiles/bundle.Dockerfile".pathChanged() ||
+      ".tekton/todoapp-bundle-push.yaml".pathChanged() || "bundle.Dockerfile".pathChanged() ||
       "bundle/***".pathChanged() || "konflux/scripts/bundle/***".pathChanged() || "konflux/scripts/catalog/***".pathChanged() || "konflux/image-refs/operator.txt".pathChanged())
   creationTimestamp: null
   labels:
@@ -28,7 +28,7 @@ spec:
   - name: output-image
     value: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle:{{revision}}
   - name: dockerfile
-    value: konflux/dockerfiles/bundle.Dockerfile
+    value: bundle.Dockerfile
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.
