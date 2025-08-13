@@ -6,22 +6,22 @@ set -euo pipefail
 # The image reference below will be updated by Renovate/Konflux nudging
 
 # Source bundle image reference from centralised file
-if [ ! -f "konflux/image-refs/bundle.txt" ]; then
-    echo "ERROR: Bundle image reference file not found: konflux/image-refs/bundle.txt"
+if [ ! -f "/tmp/konflux/image-refs/bundle.txt" ]; then
+    echo "ERROR: Bundle image reference file not found: /tmp/konflux/image-refs/bundle.txt"
     exit 1
 fi
 
-export TODOAPP_BUNDLE_IMAGE_PULLSPEC=$(cat konflux/image-refs/bundle.txt)
+export TODOAPP_BUNDLE_IMAGE_PULLSPEC=$(cat /tmp/konflux/image-refs/bundle.txt)
 
 if [ -z "$TODOAPP_BUNDLE_IMAGE_PULLSPEC" ]; then
-    echo "ERROR: Empty bundle image reference in konflux/image-refs/bundle.txt"
+    echo "ERROR: Empty bundle image reference in /tmp/konflux/image-refs/bundle.txt"
     exit 1
 fi
 
 echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 
 # Update catalog.yaml with new bundle image
-CATALOG_FILE="catalog/catalog.yaml"
+CATALOG_FILE="/configs/catalog.yaml"
 if [ -f "$CATALOG_FILE" ]; then
     echo "Found catalog file: $CATALOG_FILE"
     echo "Updating with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
@@ -61,8 +61,8 @@ if [ -f "$CATALOG_FILE" ]; then
     echo "Successfully updated catalog.yaml"
 else
     echo "ERROR: Catalog file not found at $CATALOG_FILE"
-    echo "Looking for catalog files in catalog/:"
-    ls -la catalog/*.yaml 2>/dev/null || echo "No YAML files found"
+    echo "Looking for catalog files in /configs/:"
+    ls -la /configs/*.yaml 2>/dev/null || echo "No YAML files found"
     echo "Catalog update failed - required catalog file missing"
     exit 1
 fi

@@ -6,22 +6,22 @@ set -euo pipefail
 # The image reference below will be updated by Renovate/Konflux nudging
 
 # Source operator image reference from centralised file
-if [ ! -f "konflux/image-refs/operator.txt" ]; then
-    echo "ERROR: Operator image reference file not found: konflux/image-refs/operator.txt"
+if [ ! -f "/tmp/konflux/image-refs/operator.txt" ]; then
+    echo "ERROR: Operator image reference file not found: /tmp/konflux/image-refs/operator.txt"
     exit 1
 fi
 
-export TODOAPP_OPERATOR_IMAGE_PULLSPEC=$(cat konflux/image-refs/operator.txt)
+export TODOAPP_OPERATOR_IMAGE_PULLSPEC=$(cat /tmp/konflux/image-refs/operator.txt)
 
 if [ -z "$TODOAPP_OPERATOR_IMAGE_PULLSPEC" ]; then
-    echo "ERROR: Empty operator image reference in konflux/image-refs/operator.txt"
+    echo "ERROR: Empty operator image reference in /tmp/konflux/image-refs/operator.txt"
     exit 1
 fi
 
 echo "Updating bundle with operator image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
 
 # Update ClusterServiceVersion with new operator image
-CSV_FILE="bundle/manifests/sample-konflux-app.clusterserviceversion.yaml"
+CSV_FILE="/tmp/bundle/manifests/sample-konflux-app.clusterserviceversion.yaml"
 if [ -f "$CSV_FILE" ]; then
     echo "Found ClusterServiceVersion: $CSV_FILE"
     echo "Updating with image: $TODOAPP_OPERATOR_IMAGE_PULLSPEC"
@@ -58,8 +58,8 @@ if [ -f "$CSV_FILE" ]; then
     echo "Successfully updated ClusterServiceVersion"
 else
     echo "ERROR: ClusterServiceVersion file not found at $CSV_FILE"
-    echo "Looking for CSV files in bundle/manifests/:"
-    ls -la bundle/manifests/*.yaml 2>/dev/null || echo "No YAML files found"
+    echo "Looking for CSV files in /tmp/bundle/manifests/:"
+    ls -la /tmp/bundle/manifests/*.yaml 2>/dev/null || echo "No YAML files found"
     echo "Bundle update failed - required CSV file missing"
     exit 1
 fi
