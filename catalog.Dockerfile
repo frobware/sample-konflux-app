@@ -1,10 +1,16 @@
 FROM quay.io/operator-framework/opm:latest
 
 # Default to alpha stream, can be overridden at build time
-ARG INDEX_FILE=./catalog/auto-generated/alpha.yaml
+ARG BUILD_STREAM=alpha
 
-# Copy pre-generated catalog file
-COPY ${INDEX_FILE} /configs/index.yaml
+# Copy templates and bundle reference
+COPY catalog/templates/ /tmp/templates/
+COPY konflux/image-refs/bundle.txt /tmp/bundle.txt
+
+# Generate catalog autonomously - read bundle reference and update template
+RUN BUNDLE_IMAGE=$(cat /tmp/bundle.txt | tr -d '\n') && \
+    sed "s|image:.*todoapp-bundle.*|image: $BUNDLE_IMAGE|g" /tmp/templates/${BUILD_STREAM}.yaml > /tmp/template-updated.yaml && \
+    /bin/opm alpha render-template basic --migrate-level=bundle-object-to-csv-metadata -o yaml /tmp/template-updated.yaml > /configs/index.yaml
 
 # Configure the entrypoint and command
 ENTRYPOINT ["/bin/opm"]
