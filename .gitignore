@@ -22,11 +22,7 @@ go.work
 # Build artifacts
 *.db
 index.db
-catalog/index.db
 bundle_tmp*
-
-# Auto-generated catalog files
-catalog/auto-generated/
 
 # editor and IDE paraphernalia
 .idea
@@ -37,5 +33,3 @@ catalog/auto-generated/
 
 .envrc
 .direnv/
-
-catalog/bin/
