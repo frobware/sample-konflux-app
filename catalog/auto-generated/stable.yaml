@@ -1,0 +1,9 @@
+---
+defaultChannel: stable
+name: sample-konflux-app
+schema: olm.package
+---
+entries: []
+name: stable
+package: sample-konflux-app
+schema: olm.channel
