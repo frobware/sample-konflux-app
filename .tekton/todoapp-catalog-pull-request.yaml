@@ -11,7 +11,9 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
       == "main" && (".tekton/todoapp-catalog-pull-request.yaml".pathChanged() ||
       ".tekton/todoapp-catalog-push.yaml".pathChanged() || "catalog.Dockerfile".pathChanged() ||
-      "catalog/***".pathChanged() || "konflux/scripts/catalog/***".pathChanged() || "konflux/image-refs/bundle.txt".pathChanged())
+      "catalog/templates/***".pathChanged() || "catalog/Makefile".pathChanged() ||
+      "catalog/catalog-source.yaml".pathChanged() || "konflux/scripts/catalog/***".pathChanged() || 
+      "konflux/image-refs/bundle.txt".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: todoapp

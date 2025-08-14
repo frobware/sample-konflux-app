@@ -1,0 +1,12 @@
+schema: olm.template.basic
+entries:
+  - schema: olm.package
+    name: sample-konflux-app
+    defaultChannel: stable
+  - schema: olm.channel
+    package: sample-konflux-app
+    name: stable
+    entries: []
+  # Future: Add released bundles here with fixed digests
+  # - schema: olm.bundle
+  #   image: registry.redhat.io/sample-konflux-app/todoapp-bundle@sha256:abc123...

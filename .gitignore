@@ -25,9 +25,17 @@ index.db
 catalog/index.db
 bundle_tmp*
 
+# Auto-generated catalog files
+catalog/auto-generated/
+
 # editor and IDE paraphernalia
 .idea
 .vscode
 *.swp
 *.swo
 *~
+
+.envrc
+.direnv/
+
+catalog/bin/
