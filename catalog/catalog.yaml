@@ -1,4 +1,0 @@
-schema: olm.catalog
-package: sample-konflux-app
-entries:
-- image: quay.io/redhat-user-workloads/amcdermo-tenant/todoapp-bundle:latest

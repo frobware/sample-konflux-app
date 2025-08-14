@@ -20,8 +20,8 @@ fi
 
 echo "Updating catalog with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
 
-# Update catalog.yaml with new bundle image
-CATALOG_FILE="catalog/catalog.yaml"
+# Update index.yaml with new bundle image
+CATALOG_FILE="catalog/index.yaml"
 if [ -f "$CATALOG_FILE" ]; then
     echo "Found catalog file: $CATALOG_FILE"
     echo "Updating with bundle image: $TODOAPP_BUNDLE_IMAGE_PULLSPEC"
@@ -58,7 +58,7 @@ if [ -f "$CATALOG_FILE" ]; then
     echo "Updated bundle image references:"
     grep -n "image:.*todoapp-bundle\\|$TODOAPP_BUNDLE_IMAGE_PULLSPEC" "$CATALOG_FILE" || echo "No bundle image references found after update"
     
-    echo "Successfully updated catalog.yaml"
+    echo "Successfully updated index.yaml"
 else
     echo "ERROR: Catalog file not found at $CATALOG_FILE"
     echo "Looking for catalog files in catalog/:"
