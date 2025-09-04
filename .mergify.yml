@@ -1,8 +1,24 @@
 pull_request_rules:
+  - name: Add lgtm label on /lgtm comment
+    conditions:
+      - "body~=/lgtm|comments~=/lgtm"
+    actions:
+      label:
+        add:
+          - "lgtm"
+
+  - name: Add approved label on /approve comment  
+    conditions:
+      - "body~=/approve|comments~=/approve"
+    actions:
+      label:
+        add:
+          - "approved"
+
   - name: Automatic merge on /lgtm and /approve
     conditions:
-      - "body~=(?i)/lgtm" or "comments~=(?i)/lgtm"
-      - "body~=(?i)/approve" or "comments~=(?i)/approve" 
+      - "label=lgtm"
+      - "label=approved"
       - "status-success~=.*"
       - "check-success~=.*"
       - "-draft"
@@ -14,19 +30,3 @@ pull_request_rules:
           {{ title }} (#{{ number }})
           
           {{ body }}
-
-  - name: Add lgtm label on /lgtm comment
-    conditions:
-      - "comments~=(?i)/lgtm"
-    actions:
-      label:
-        add:
-          - "lgtm"
-
-  - name: Add approved label on /approve comment  
-    conditions:
-      - "comments~=(?i)/approve"
-    actions:
-      label:
-        add:
-          - "approved"
