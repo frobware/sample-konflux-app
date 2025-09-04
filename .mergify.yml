@@ -1,9 +1,8 @@
 # Mergify configuration for auto-merge after prow-github-actions adds labels
 pull_request_rules:
-  - name: Auto merge with prow labels
+  - name: Auto merge with lgtm label
     conditions:
       - "label=lgtm"
-      - "label=approved"
       - "check-success~=.*"
       - "-draft"
     actions:
