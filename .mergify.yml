@@ -1,23 +1,7 @@
 pull_request_rules:
-  - name: Label on lgtm comment
+  - name: Test rule
     conditions:
-      - "body~=/lgtm OR #comments-body~=/lgtm"
+      - "base=main"
     actions:
       label:
-        add: ["lgtm"]
-
-  - name: Label on approve comment
-    conditions:
-      - "body~=/approve OR #comments-body~=/approve"
-    actions:
-      label:
-        add: ["approved"]
-
-  - name: Auto merge when ready
-    conditions:
-      - "label=lgtm"
-      - "label=approved"
-      - "#approved-reviews-by>=1"
-    actions:
-      merge:
-        method: squash
+        add: ["test-label"]
