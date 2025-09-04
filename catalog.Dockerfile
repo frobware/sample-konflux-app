@@ -1,4 +1,4 @@
-FROM quay.io/operator-framework/opm:v1.54.0
+FROM quay.io/operator-framework/opm:v1.57.0
 
 ARG BUILD_STREAM=alpha
 
