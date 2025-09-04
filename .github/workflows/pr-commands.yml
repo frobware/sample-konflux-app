@@ -1,0 +1,24 @@
+name: Auto-merge PRs
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  status: {}
+  check_suite:
+    types: [completed]
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Merge Pull Request
+      uses: pascalgn/merge-action@v0.15.6
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        merge_method: squash
+        merge_commit_message: pull-request-title-and-description
+        merge_labels: "lgtm,approved"
+        merge_remove_labels: "lgtm,approved"
+        merge_delete_branch: true
