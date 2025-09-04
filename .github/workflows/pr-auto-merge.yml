@@ -4,10 +4,9 @@ on:
   issue_comment:
     types: [created]
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
-  status: {}
-  check_suite:
-    types: [completed]
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '*/5 * * * *'  # Check every 5 minutes for auto-merge
 
 jobs:
   prow-commands:
@@ -37,10 +36,7 @@ jobs:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
 
   auto-merge:
-    if: >
-      (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'lgtm') ||
-      github.event_name == 'status' ||
-      github.event_name == 'check_suite'
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     permissions:
       contents: write
