@@ -18,7 +18,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: jpmcb/prow-github-actions@v2
+      - uses: jpmcb/prow-github-actions@v2.0.0
         with:
           prow-commands: '/lgtm /hold /cc /uncc /assign /unassign /kind /priority /area /milestone /close /reopen'
           github-token: '${{ secrets.GITHUB_TOKEN }}'
@@ -31,7 +31,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: jpmcb/prow-github-actions@v2
+      - uses: jpmcb/prow-github-actions@v2.0.0
         with:
           jobs: lgtm
           github-token: '${{ secrets.GITHUB_TOKEN }}'
@@ -46,7 +46,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: jpmcb/prow-github-actions@v2
+      - uses: jpmcb/prow-github-actions@v2.0.0
         with:
           jobs: lgtm
           github-token: '${{ secrets.GITHUB_TOKEN }}'
