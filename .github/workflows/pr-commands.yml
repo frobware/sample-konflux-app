@@ -35,3 +35,4 @@ jobs:
         MERGE_LABELS: "lgtm,approved"
         MERGE_METHOD: "squash"
         MERGE_DELETE_BRANCH: "true"
+        MERGE_REMOVE_LABELS: "lgtm,approved"
