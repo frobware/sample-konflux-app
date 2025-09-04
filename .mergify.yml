@@ -1,7 +1,10 @@
 pull_request_rules:
-  - name: Test rule
+  - name: Auto merge with labels
     conditions:
-      - "base=main"
+      - "label=lgtm"
+      - "label=approved"
+      - "check-success~=.*"
+      - "-draft"
     actions:
-      label:
-        add: ["test-label"]
+      merge:
+        method: squash
