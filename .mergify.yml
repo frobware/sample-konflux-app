@@ -1,32 +1,23 @@
 pull_request_rules:
-  - name: Add lgtm label on /lgtm comment
+  - name: Label on lgtm comment
     conditions:
-      - "body~=/lgtm|comments~=/lgtm"
+      - "body~=/lgtm OR #comments-body~=/lgtm"
     actions:
       label:
-        add:
-          - "lgtm"
+        add: ["lgtm"]
 
-  - name: Add approved label on /approve comment  
+  - name: Label on approve comment
     conditions:
-      - "body~=/approve|comments~=/approve"
+      - "body~=/approve OR #comments-body~=/approve"
     actions:
       label:
-        add:
-          - "approved"
+        add: ["approved"]
 
-  - name: Automatic merge on /lgtm and /approve
+  - name: Auto merge when ready
     conditions:
       - "label=lgtm"
       - "label=approved"
-      - "status-success~=.*"
-      - "check-success~=.*"
-      - "-draft"
-      - "-conflict"
+      - "#approved-reviews-by>=1"
     actions:
       merge:
         method: squash
-        commit_message_template: |
-          {{ title }} (#{{ number }})
-          
-          {{ body }}
