@@ -1,0 +1,32 @@
+pull_request_rules:
+  - name: Automatic merge on /lgtm and /approve
+    conditions:
+      - "body~=(?i)/lgtm" or "comments~=(?i)/lgtm"
+      - "body~=(?i)/approve" or "comments~=(?i)/approve" 
+      - "status-success~=.*"
+      - "check-success~=.*"
+      - "-draft"
+      - "-conflict"
+    actions:
+      merge:
+        method: squash
+        commit_message_template: |
+          {{ title }} (#{{ number }})
+          
+          {{ body }}
+
+  - name: Add lgtm label on /lgtm comment
+    conditions:
+      - "comments~=(?i)/lgtm"
+    actions:
+      label:
+        add:
+          - "lgtm"
+
+  - name: Add approved label on /approve comment  
+    conditions:
+      - "comments~=(?i)/approve"
+    actions:
+      label:
+        add:
+          - "approved"
