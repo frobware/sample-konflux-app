@@ -1,0 +1,14 @@
+apiVersion: projctl.konflux.dev/v1beta1
+kind: ProjectDevelopmentStream
+metadata:
+  name: todoapp-v2-0-stream
+  namespace: amcdermo-tenant
+spec:
+  project: todoapp-project
+  template:
+    name: todoapp-template
+    values:
+    - name: version
+      value: "v2.0"
+    - name: branch
+      value: "release/v2.0"

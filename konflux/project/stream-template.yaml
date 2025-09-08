@@ -1,0 +1,139 @@
+apiVersion: projctl.konflux.dev/v1beta1
+kind: ProjectDevelopmentStreamTemplate
+metadata:
+  name: todoapp-template
+  namespace: amcdermo-tenant
+spec:
+  project: todoapp-project
+  variables:
+  - name: version
+    description: "Version number for the development stream (e.g., v1.0, v2.0)"
+  - name: versionName
+    description: "Kubernetes-compliant name for the version"
+    defaultValue: "{{hyphenize .version}}"
+  - name: branch
+    description: "Git branch to build from (e.g., release/v1.0)"
+  - name: namespace
+    description: "Kubernetes namespace"
+    defaultValue: "amcdermo-tenant"
+  resources:
+  # Application
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: Application
+    metadata:
+      name: "todoapp-{{.versionName}}"
+      namespace: "{{.namespace}}"
+    spec:
+      displayName: "TodoApp {{.version}}"
+      description: "TodoApp operator {{.version}} with operator, bundle, and catalog components"
+
+  # Operator ImageRepository
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: ImageRepository
+    metadata:
+      name: "todoapp-operator-{{.versionName}}"
+      namespace: "{{.namespace}}"
+      labels:
+        appstudio.redhat.com/application: "todoapp-{{.versionName}}"
+        appstudio.redhat.com/component: "todoapp-operator-{{.versionName}}"
+    spec:
+      image:
+        name: "{{.namespace}}/todoapp-operator-{{.versionName}}"
+        visibility: public
+
+  # Operator Component
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: Component
+    metadata:
+      name: "todoapp-operator-{{.versionName}}"
+      namespace: "{{.namespace}}"
+      annotations:
+        build.appstudio.openshift.io/request: "configure-pac"
+        build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
+        build.appstudio.openshift.io/build-nudge-files: "konflux/image-refs/operator.txt"
+        git-provider: github
+        git-provider-url: https://github.com
+    spec:
+      application: "todoapp-{{.versionName}}"
+      componentName: "todoapp-operator-{{.versionName}}"
+      build-nudges-ref:
+      - "todoapp-bundle-{{.versionName}}"
+      source:
+        git:
+          context: "./"
+          dockerfileUrl: "Dockerfile"
+          revision: "{{.branch}}"
+          url: "https://github.com/frobware/sample-konflux-app"
+
+  # Bundle ImageRepository
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: ImageRepository
+    metadata:
+      name: "todoapp-bundle-{{.versionName}}"
+      namespace: "{{.namespace}}"
+      labels:
+        appstudio.redhat.com/application: "todoapp-{{.versionName}}"
+        appstudio.redhat.com/component: "todoapp-bundle-{{.versionName}}"
+    spec:
+      image:
+        name: "{{.namespace}}/todoapp-bundle-{{.versionName}}"
+        visibility: public
+
+  # Bundle Component
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: Component
+    metadata:
+      name: "todoapp-bundle-{{.versionName}}"
+      namespace: "{{.namespace}}"
+      annotations:
+        build.appstudio.openshift.io/request: "configure-pac"
+        build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
+        build.appstudio.openshift.io/build-nudge-files: "konflux/image-refs/bundle.txt"
+        git-provider: github
+        git-provider-url: https://github.com
+    spec:
+      application: "todoapp-{{.versionName}}"
+      componentName: "todoapp-bundle-{{.versionName}}"
+      build-nudges-ref:
+      - "todoapp-catalog-{{.versionName}}"
+      source:
+        git:
+          context: "./"
+          dockerfileUrl: "konflux/dockerfiles/bundle.Dockerfile"
+          revision: "{{.branch}}"
+          url: "https://github.com/frobware/sample-konflux-app"
+
+  # Catalog ImageRepository
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: ImageRepository
+    metadata:
+      name: "todoapp-catalog-{{.versionName}}"
+      namespace: "{{.namespace}}"
+      labels:
+        appstudio.redhat.com/application: "todoapp-{{.versionName}}"
+        appstudio.redhat.com/component: "todoapp-catalog-{{.versionName}}"
+    spec:
+      image:
+        name: "{{.namespace}}/todoapp-catalog-{{.versionName}}"
+        visibility: public
+
+  # Catalog Component
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    kind: Component
+    metadata:
+      name: "todoapp-catalog-{{.versionName}}"
+      namespace: "{{.namespace}}"
+      annotations:
+        build.appstudio.openshift.io/request: "configure-pac"
+        build.appstudio.openshift.io/pipeline: '{"name":"docker-build-oci-ta","bundle":"latest"}'
+        git-provider: github
+        git-provider-url: https://github.com
+    spec:
+      application: "todoapp-{{.versionName}}"
+      componentName: "todoapp-catalog-{{.versionName}}"
+      source:
+        git:
+          context: "./"
+          dockerfileUrl: "konflux/dockerfiles/catalog.Dockerfile"
+          revision: "{{.branch}}"
+          url: "https://github.com/frobware/sample-konflux-app"

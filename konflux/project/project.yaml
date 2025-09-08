@@ -1,0 +1,11 @@
+apiVersion: projctl.konflux.dev/v1beta1
+kind: Project
+metadata:
+  name: todoapp-project
+  namespace: amcdermo-tenant
+spec:
+  displayName: "TodoApp Multi-Version Project"
+  description: |
+    TodoApp operator project demonstrating Konflux multi-version management patterns.
+    This project manages multiple development streams for different versions of the 
+    TodoApp operator, bundle, and catalog components.
