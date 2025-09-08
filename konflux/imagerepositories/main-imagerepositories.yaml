@@ -1,0 +1,38 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  labels:
+    appstudio.redhat.com/application: todoapp-main
+    appstudio.redhat.com/component: todoapp-operator-main
+  name: todoapp-operator-main
+  namespace: amcdermo-tenant
+spec:
+  image:
+    name: amcdermo-tenant/todoapp-operator-main
+    visibility: public
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  labels:
+    appstudio.redhat.com/application: todoapp-main
+    appstudio.redhat.com/component: todoapp-bundle-main
+  name: todoapp-bundle-main
+  namespace: amcdermo-tenant
+spec:
+  image:
+    name: amcdermo-tenant/todoapp-bundle-main
+    visibility: public
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  labels:
+    appstudio.redhat.com/application: todoapp-main
+    appstudio.redhat.com/component: todoapp-catalog-main
+  name: todoapp-catalog-main
+  namespace: amcdermo-tenant
+spec:
+  image:
+    name: amcdermo-tenant/todoapp-catalog-main
+    visibility: public

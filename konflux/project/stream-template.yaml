@@ -27,20 +27,6 @@ spec:
       displayName: "TodoApp {{.version}}"
       description: "TodoApp operator {{.version}} with operator, bundle, and catalog components"
 
-  # Operator ImageRepository
-  - apiVersion: appstudio.redhat.com/v1alpha1
-    kind: ImageRepository
-    metadata:
-      name: "todoapp-operator-{{.versionName}}"
-      namespace: "{{.namespace}}"
-      labels:
-        appstudio.redhat.com/application: "todoapp-{{.versionName}}"
-        appstudio.redhat.com/component: "todoapp-operator-{{.versionName}}"
-    spec:
-      image:
-        name: "{{.namespace}}/todoapp-operator-{{.versionName}}"
-        visibility: public
-
   # Operator Component
   - apiVersion: appstudio.redhat.com/v1alpha1
     kind: Component
@@ -65,20 +51,6 @@ spec:
           revision: "{{.branch}}"
           url: "https://github.com/frobware/sample-konflux-app"
 
-  # Bundle ImageRepository
-  - apiVersion: appstudio.redhat.com/v1alpha1
-    kind: ImageRepository
-    metadata:
-      name: "todoapp-bundle-{{.versionName}}"
-      namespace: "{{.namespace}}"
-      labels:
-        appstudio.redhat.com/application: "todoapp-{{.versionName}}"
-        appstudio.redhat.com/component: "todoapp-bundle-{{.versionName}}"
-    spec:
-      image:
-        name: "{{.namespace}}/todoapp-bundle-{{.versionName}}"
-        visibility: public
-
   # Bundle Component
   - apiVersion: appstudio.redhat.com/v1alpha1
     kind: Component
@@ -102,20 +74,6 @@ spec:
           dockerfileUrl: "konflux/dockerfiles/bundle.Dockerfile"
           revision: "{{.branch}}"
           url: "https://github.com/frobware/sample-konflux-app"
-
-  # Catalog ImageRepository
-  - apiVersion: appstudio.redhat.com/v1alpha1
-    kind: ImageRepository
-    metadata:
-      name: "todoapp-catalog-{{.versionName}}"
-      namespace: "{{.namespace}}"
-      labels:
-        appstudio.redhat.com/application: "todoapp-{{.versionName}}"
-        appstudio.redhat.com/component: "todoapp-catalog-{{.versionName}}"
-    spec:
-      image:
-        name: "{{.namespace}}/todoapp-catalog-{{.versionName}}"
-        visibility: public
 
   # Catalog Component
   - apiVersion: appstudio.redhat.com/v1alpha1
