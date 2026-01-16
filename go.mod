@@ -1,6 +1,6 @@
 module github.com/frobware/sample-konflux-app
 
-go 1.22.0
+go 1.23
 
 require (
 	github.com/onsi/ginkgo/v2 v2.19.0
